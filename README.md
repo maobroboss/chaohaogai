@@ -8,7 +8,9 @@
 
 ## 下載離線版（不需要網路）
 
-👉 到 [Releases](../../releases/latest) 下載 `chaohaogai-offline.html`（超好蓋離線版），存到電腦後用 Chrome / Edge / Safari 打開即可。
+👉 https://gai.maobro.com/dl （下載 `chaohaogai-offline.zip`，解壓縮後用 Chrome / Edge / Safari 打開「超好蓋.html」即可）
+
+所有版本：[Releases](../../releases)
 
 ## 功能
 
