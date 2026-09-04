@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>超好蓋</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E  %3Crect x=%223%22 y=%223%22 width=%2258%22 height=%2258%22 rx=%229%22 fill=%22%23B93A2E%22/%3E  %3Crect x=%228.5%22 y=%228.5%22 width=%2247%22 height=%2247%22 rx=%225%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%222.5%22 opacity=%22.9%22/%3E  %3Ctext x=%2232%22 y=%2247%22 text-anchor=%22middle%22 font-family=%22'Noto Serif TC','PingFang TC','Microsoft JhengHei','Songti TC',serif%22 font-weight=%22700%22 font-size=%2238%22 fill=%22%23fff%22%3E%E6%AF%9B%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600&display=swap">
+<style>
+:root{
+  --bg:#F4F3EF; --panel:#FFFFFF; --ink:#1F2328; --muted:#6E7580; --line:#DCD9D1; --line-strong:#B9B5AB;
+  --accent:#B93A2E; --accent-ink:#FFFFFF; --accent-soft:#F6E4E0; --stage:#E6E4DD; --shadow:0 1px 2px rgba(20,20,20,.08),0 8px 24px rgba(20,20,20,.08);
+  --ok:#2F7D4F; --warn:#9A6B00;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17191C; --panel:#1F2226; --ink:#E8E6E1; --muted:#9AA0A8; --line:#33373D; --line-strong:#4A4F57;
+    --accent:#E2594A; --accent-ink:#1A1A1A; --accent-soft:#3A2622; --stage:#121416; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.4);
+    --ok:#5FBF85; --warn:#E0B24D;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17191C; --panel:#1F2226; --ink:#E8E6E1; --muted:#9AA0A8; --line:#33373D; --line-strong:#4A4F57;
+  --accent:#E2594A; --accent-ink:#1A1A1A; --accent-soft:#3A2622; --stage:#121416; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.4);
+  --ok:#5FBF85; --warn:#E0B24D;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+input[type=range]{accent-color:var(--accent);width:100%}
+.app{display:grid;grid-template-columns:364px 1fr;height:100vh;overflow:hidden}
+.mtabs{display:none}
+@media (max-width:820px){
+  .app{display:block;height:auto;overflow:visible}
+  .side{border-right:0;overflow:visible;height:auto;padding-bottom:80px}
+  .main{height:auto;min-height:calc(100vh - 56px);overflow:visible}
+  .stage{padding:12px;overflow:auto;min-height:60vh}
+  body[data-view="page"] .side{display:none}
+  body[data-view="tools"] .main{display:none}
+  .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;height:56px;background:var(--panel);border-top:1px solid var(--line);z-index:40;padding:6px;gap:6px;padding-bottom:max(6px,env(safe-area-inset-bottom))}
+  .mtabs button{flex:1;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);font-size:15px}
+  .mtabs button.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+  .bar{position:sticky;top:0;z-index:5}
+}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:20px 18px 32px;display:flex;flex-direction:column;gap:22px;overflow-y:auto;height:100vh;overscroll-behavior:contain}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand h1{font-family:"Noto Serif TC","Noto Sans TC",serif;font-weight:600;font-size:22px;margin:0;letter-spacing:.06em}
+.brand span{color:var(--muted);font-size:12px}
+.brand-wrap{display:flex;flex-direction:column;gap:6px}
+.credit{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);line-height:1.5}
+.credit span:first-child{color:var(--ink);font-weight:500}
+.credit a{color:var(--accent);text-decoration:none}
+.credit a:hover{text-decoration:underline}
+.step{display:flex;flex-direction:column;gap:10px}
+.step h2{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.step h2 b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--panel);font-size:11px}
+.step h2 small{margin-left:auto;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ok)}
+.btn{border:1px solid var(--line-strong);background:var(--panel);border-radius:6px;padding:8px 12px;display:inline-flex;align-items:center;gap:6px;transition:background .15s}
+.btn:hover{background:var(--bg)}
+.btn:focus-visible,.stamp:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.primary:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn.wide{width:100%;justify-content:center}
+.drop{border:1.5px dashed var(--line-strong);border-radius:8px;padding:16px 12px;text-align:center;color:var(--muted);cursor:pointer;transition:border-color .15s,background .15s}
+.drop.over,.drop:hover{border-color:var(--accent);background:var(--accent-soft)}
+.drop strong{color:var(--ink);display:block;margin-bottom:4px}
+.drop span{display:block;font-size:12px;line-height:1.6}
+.file-line{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.file-line span:last-child{color:var(--muted);white-space:nowrap}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden}
+.seg button{flex:1;border:0;background:transparent;padding:7px 8px;font-size:13px;white-space:nowrap}
+.seg button+button{border-left:1px solid var(--line-strong)}
+.seg button.on{background:var(--ink);color:var(--panel)}
+.lab{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.lab output{color:var(--ink);font-variant-numeric:tabular-nums}
+.maker{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.preview{background:
+  linear-gradient(45deg,var(--line) 25%,transparent 25%,transparent 75%,var(--line) 75%),
+  linear-gradient(45deg,var(--line) 25%,transparent 25%,transparent 75%,var(--line) 75%);
+  background-color:var(--panel);background-size:16px 16px;background-position:0 0,8px 8px;
+  border:1px solid var(--line);border-radius:6px;min-height:90px;display:grid;place-items:center;overflow:hidden}
+.preview canvas,.preview img{max-width:100%;max-height:150px}
+.preview .hint{color:var(--muted);font-size:12px;padding:12px}
+#pad{touch-action:none;background:#fff;border-radius:6px;border:1px solid var(--line);width:100%;height:140px;display:block;cursor:crosshair}
+.row{display:flex;gap:8px}
+.row>*{flex:1}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.stamp{position:relative;border:1px solid var(--line);border-radius:6px;background:var(--panel);display:flex;flex-direction:column;gap:4px;padding:6px;cursor:pointer;transition:border-color .15s;text-align:left}
+.stamp .pic{height:64px;display:grid;place-items:center}
+.stamp .szrow{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);white-space:nowrap}
+.stamp .szrow input{width:0;flex:1;min-width:34px;font:inherit;font-size:12px;border:1px solid var(--line-strong);border-radius:4px;padding:2px 3px;background:var(--panel);color:var(--ink);text-align:center}
+.stamp:hover{border-color:var(--accent)}
+.stamp img{max-width:100%;max-height:64px;pointer-events:none}
+.stamp .x{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;border:0;background:var(--ink);color:var(--panel);font-size:11px;line-height:18px;padding:0;display:none}
+.stamp:hover .x{display:block}
+.lib .empty{grid-column:1/-1;color:var(--muted);font-size:12px}
+.tips{margin-top:8px;padding:8px 10px;border-radius:6px;background:var(--bg);border:1px dashed var(--line-strong);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.tips b{color:var(--ink);font-weight:500}
+.size-row{display:flex;align-items:center;gap:6px;font-size:13px;flex-wrap:nowrap;white-space:nowrap}
+.size-row .paper{display:flex;margin-left:auto}
+.size-row .paper .btn{padding:6px 8px;border-radius:0}
+.size-row .paper .btn:first-child{border-radius:6px 0 0 6px}
+.size-row .paper .btn:last-child{border-radius:0 6px 6px 0;border-left:0}
+.size-row select{font:inherit;border:1px solid var(--line-strong);border-radius:6px;padding:5px;background:var(--panel);color:var(--ink);min-width:0}
+.size-row>span:first-child{color:var(--muted);min-width:72px}
+.size-row .seg button{padding:5px 4px}
+.size-row input,.bar .zoom input[type=number]{width:64px;font:inherit;border:1px solid var(--line-strong);border-radius:6px;padding:5px;background:var(--panel);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+#splitBox{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.pieces{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.piece{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:6px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.piece .pic{width:100%;height:64px;display:grid;place-items:center}
+.piece img{max-width:100%;max-height:64px}
+.piece .n{position:absolute}
+.piece button{width:100%;padding:4px 6px;font-size:12px}
+.piece .tag{font-size:11px;color:var(--muted);align-self:flex-start}
+.pieces .none{grid-column:1/-1;color:var(--muted);font-size:12px}
+.tip{font-size:12px;color:var(--muted);margin:0}
+.msg{font-size:12px;min-height:1em}
+.msg.err{color:var(--accent)}
+.msg.ok{color:var(--ok)}
+.foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);line-height:1.6}
+.foot summary{cursor:pointer;color:var(--accent);margin-top:2px}
+.foot .legal{margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:6px}
+.foot .legal p{margin:0 0 6px}
+.foot .legal b{color:var(--ink)}
+
+.main{display:flex;flex-direction:column;height:100vh;position:relative;overflow:hidden}
+.toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-8px);background:var(--ink);color:var(--panel);padding:10px 16px;border-radius:8px;font-size:14px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:80vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{background:var(--accent);color:var(--accent-ink)}
+.toast.ok{background:var(--ok);color:#fff}
+.bar{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.bar .pg{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.bar .pg input{width:48px;text-align:center;font:inherit;border:1px solid var(--line-strong);border-radius:6px;padding:5px;background:var(--panel);color:var(--ink)}
+.bar .sp{flex:1}
+.bar .zoom{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+.stage{flex:1;min-height:0;background:var(--stage);overflow:auto;overscroll-behavior:contain;padding:24px;display:flex;justify-content:center;align-items:flex-start}
+.sheet{position:relative;background:#fff;box-shadow:var(--shadow);display:none;user-select:none}
+.sheet canvas{display:block}
+.empty-stage{margin:auto;text-align:center;color:var(--muted);max-width:360px}
+.empty-stage h3{font-family:"Noto Serif TC",serif;font-weight:600;color:var(--ink);font-size:20px;margin:0 0 8px;text-wrap:balance}
+.empty-stage p{margin:0;font-size:13px}
+.ph{position:absolute;touch-action:none;cursor:move;outline:1.5px dashed transparent;outline-offset:2px}
+.ph img{width:100%;height:100%;display:block;pointer-events:none}
+.ph.sel{outline-color:var(--accent)}
+.ph .h{position:absolute;right:-7px;bottom:-7px;width:14px;height:14px;background:var(--accent);border:2px solid #fff;border-radius:50%;cursor:nwse-resize;display:none}
+.ph .d{position:absolute;top:-10px;right:-10px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;border:2px solid #fff;font-size:12px;line-height:16px;text-align:center;padding:0;display:none}
+.ph.sel .h,.ph.sel .d{display:block}
+.count{font-size:12px;color:var(--muted)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:50;padding:20px}
+.modal{background:var(--panel);color:var(--ink);border-radius:10px;box-shadow:var(--shadow);max-width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-h{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.modal-h .btn{margin-left:auto}
+.modal-b{overflow:auto;padding:16px;display:flex;flex-direction:column;gap:20px}
+.fan{display:flex;flex-direction:column;gap:8px}
+.fan h4{margin:0;font-size:13px;color:var(--muted);font-weight:500}
+.fan .pair{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.fan canvas{max-width:100%;height:auto;box-shadow:var(--shadow);background:var(--stage)}
+.fan .zoomc{border:2px solid var(--accent)}
+.fixwrap{position:relative;display:inline-block;touch-action:none;user-select:none;max-width:100%}
+.fixwrap canvas{display:block;max-width:100%;height:auto;background:var(--stage)}
+.corner{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;touch-action:none}
+.corner:active{cursor:grabbing}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="app">
+<aside class="side">
+  <div class="brand-wrap">
+    <div class="brand"><h1>超好蓋</h1><span>PDF 貼簽名、貼印章</span></div>
+    <div class="credit"><span>毛總是個爸出品</span><span>＠maobroboss</span><a href="https://www.youtube.com/@maobro_boss" target="_blank" rel="noopener">YT：youtube.com/@maobro_boss</a></div>
+  </div>
+
+  <section class="step">
+    <h2><b>1</b> 選 PDF <small id="pdfOk"></small></h2>
+    <div class="drop" id="pdfDrop" tabindex="0"><strong>拖 PDF 進來，或點這裡選檔</strong>檔案只在你的瀏覽器裡處理，不會上傳</div>
+    <input type="file" id="pdfFile" accept="application/pdf" hidden>
+    <div class="file-line" id="pdfInfo" hidden><span id="pdfName"></span><span id="pdfPages"></span></div>
+  </section>
+
+  <section class="step">
+    <h2><b>2</b> 做簽章</h2>
+    <div class="seg" id="mode">
+      <button class="on" data-m="photo">拍照／圖片去背</button>
+      <button data-m="draw">手寫簽名</button>
+    </div>
+
+    <div class="maker" id="photoMaker">
+      <div class="drop" id="imgDrop" tabindex="0"><strong>拖曳簽名、蓋章的照片、圖檔或 PDF 檔</strong><span>可以放在白紙上拍清楚。</span><span>一張圖片可涵蓋多組簽章，底下有拆分小工具。</span></div>
+      <input type="file" id="imgFile" accept="image/*,application/pdf" hidden>
+      <div class="preview" id="imgPreview"><div class="hint">處理後的預覽會出現在這裡（格子＝透明）</div></div>
+      <div class="row"><button class="btn primary" id="fixAutoBtn" disabled>自動矩形修正</button><button class="btn" id="fixBtn" disabled>手動修正</button><button class="btn" id="fixUndo" hidden>還原</button></div>
+      <p class="tip">以照片裡的印章外框為準，把歪掉的印章拉成正矩形（正方章會拉成正方形）。抓不到再用手動。</p>
+      <div>
+        <div class="lab"><span>去背強度（Threshold）</span><output id="thrOut">50</output></div>
+        <input type="range" id="thr" min="5" max="95" value="50">
+      </div>
+      <div>
+        <div class="lab"><span>去雜點（Despeckle）</span><output id="dspOut">3</output></div>
+        <input type="range" id="dsp" min="0" max="10" value="3">
+      </div>
+      <div class="lab"><span>顏色</span></div>
+      <div class="seg" id="color">
+        <button class="on" data-c="keep">保留原色</button>
+        <button data-c="black">純黑</button>
+        <button data-c="red">印泥紅</button>
+        <button data-c="blue">印泥藍</button>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="addPhoto" disabled>整張加入簽章庫</button>
+        <button class="btn" id="splitBtn" disabled>分拆成多個</button>
+      </div>
+      <div id="splitBox" hidden>
+        <p class="tip" style="margin:0">自動分不開的話：把合併距離拉到 0；還是不行就直接在上方預覽圖上<b>拖曳框選</b>要切出來的那一個。</p>
+        <div class="lab"><span>合併距離（靠近的筆畫視為同一個）</span><output id="gapOut">3%</output></div>
+        <input type="range" id="gap" min="0" max="12" step="0.5" value="3">
+        <div class="pieces" id="pieces"></div>
+        <button class="btn wide primary" id="addAll">全部各自加入簽章庫</button>
+      </div>
+    </div>
+
+    <div class="maker" id="drawMaker" hidden>
+      <canvas id="pad" width="600" height="280"></canvas>
+      <div class="row">
+        <button class="btn" id="padClear">清掉重寫</button>
+        <button class="btn primary" id="addDraw">加入簽章庫</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="lab" style="margin-bottom:6px"><span>簽章庫（Library）</span><span>點一下就貼到目前頁面</span></div>
+      <div class="lib" id="lib"></div>
+      <div class="tips"><b>常見尺寸</b><span>公司大章 2.4／2.7／3.0 cm</span><span>個人小章 1.5／1.8 cm</span></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><b>騎</b> 騎縫章（選用）</h2>
+    <p class="tip">把一個印章切成數條，分別蓋在連續幾頁的邊上；把紙張錯開疊起來時會拼成完整的章。</p>
+    <div class="maker" id="rsBox">
+      <div class="size-row"><span>用哪個章</span><select id="rsStamp" style="flex:1"></select></div>
+      <div class="size-row"><span>蓋在哪一邊</span>
+        <span class="seg" style="flex:1" id="rsEdge"><button class="on" data-e="right">右邊</button><button data-e="left">左邊</button></span></div>
+      <div class="size-row"><span>頁數範圍</span> 第 <input type="number" id="rsFrom" value="1" min="1"> 到 <input type="number" id="rsTo" min="1"> 頁</div>
+      <div class="size-row"><span>每組最多</span><input type="number" id="rsPer" value="6" min="2" max="20"> 頁<span class="tip">（超過就往下再蓋一組）</span></div>
+      <div class="size-row"><span>章的寬度</span><input type="number" id="rsCm" step="0.1" min="0.5"> cm</div>
+      <div><div class="lab"><span>離頁面頂端的距離</span><output id="rsPosOut">50%</output></div><input type="range" id="rsPos" min="5" max="95" value="50"></div>
+      <div class="row"><button class="btn primary" id="rsGo">蓋騎縫章</button><button class="btn" id="rsPreview">預覽騎縫效果</button></div>
+      <button class="btn wide" id="rsClear">移除全部騎縫章</button>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><b>3</b> 貼上 &amp; 下載</h2>
+    <p class="tip">貼上後可拖曳移動、拉右下角圓點縮放、按 ✕ 或 Delete 鍵移除。每一頁都可以貼。</p>
+    <button class="btn wide primary" id="export" disabled>下載蓋好章的 PDF</button>
+    <div class="msg" id="msg"></div>
+  </section>
+
+  <footer class="foot">
+    <div>© 2026 毛總是個爸（＠maobroboss）・免費公開使用</div>
+    <details>
+      <summary>免費公開使用聲明・版權與授權</summary>
+      <div class="legal">
+        <p><b>免費公開使用聲明</b></p>
+        <p>「超好蓋」由毛總是個爸製作，免費提供所有人使用，個人或商業用途皆可，不需付費、不需申請授權。</p>
+        <p>你可以自由複製、分享、轉發本工具檔案給任何人。請保留本聲明與作者署名，請勿移除署名後宣稱為自己的作品，也請勿將本工具單獨販售。</p>
+        <p>所有 PDF、簽名與印章圖片都只在你自己的裝置瀏覽器內處理，本工具不會上傳、儲存或傳送任何檔案到任何伺服器。</p>
+        <p>本工具依「現狀」提供，不保證無錯誤或適用於特定用途。蓋章後的文件是否正確、是否具備法律效力，請使用者自行確認；因使用本工具產生的任何損失，作者不負賠償責任。</p>
+        <p><b>版權聲明</b></p>
+        <p>本工具的介面設計與程式碼 © 2026 毛總是個爸，保留署名權；「超好蓋」名稱與「毛」章圖示為作者所有。</p>
+        <p>本工具使用下列開源元件，其著作權歸各原作者所有，並依原授權條款使用：pdf.js（Mozilla，Apache License 2.0）、pdf-lib（Andrew Dillon，MIT License）。離線版檔案內附完整授權全文。</p>
+      </div>
+    </details>
+  </footer>
+</aside>
+
+<main class="main">
+  <div class="bar">
+    <button class="btn" id="prev">‹ 上一頁</button>
+    <div class="pg"><input id="pgNum" value="1"> / <span id="pgTotal">–</span></div>
+    <button class="btn" id="next">下一頁 ›</button>
+    <span class="count" id="count"></span>
+    <div class="sp"></div>
+    <div class="zoom" id="selSize" hidden>選取的簽章 寬 <input type="number" id="selCm" step="0.05" min="0.2" style="width:64px"> cm <span id="selHint"></span></div>
+    <div class="zoom">縮放 <input type="range" id="zoom" min="30" max="200" value="100" style="width:120px"> <output id="zoomOut">100%</output></div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="stage" id="stage">
+    <div class="empty-stage" id="emptyStage">
+      <h3>先把要蓋章的 PDF 拖進來</h3>
+      <p>接著做一個簽章：上傳一張簽名或印章的照片會自動去背，或直接用滑鼠／手指手寫。</p>
+    </div>
+    <div class="sheet" id="sheet"><canvas id="page"></canvas></div>
+  </div>
+</main>
+<div class="mtabs"><button id="tabTools" class="on">🛠 工具</button><button id="tabPage">📄 頁面</button></div>
+<div class="overlay" id="fixOverlay" hidden>
+  <div class="modal">
+    <div class="modal-h"><strong>矩形修正</strong><span class="tip">把四個紅點拖到印章（或紙張）的四個角，再按套用；格線歪了代表角還沒對準</span><button class="btn" id="fixCancel">取消</button></div>
+    <div class="modal-b">
+      <div class="fixwrap" id="fixWrap"><canvas id="fixCanvas"></canvas>
+        <div class="corner" data-i="0"></div><div class="corner" data-i="1"></div><div class="corner" data-i="2"></div><div class="corner" data-i="3"></div>
+      </div>
+      <div class="row"><button class="btn primary" id="fixApply">套用</button><button class="btn" id="fixAuto">重新自動抓角</button><label class="btn" style="justify-content:center"><input type="checkbox" id="fixGrid" checked> 顯示格線</label></div>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="rsOverlay" hidden>
+  <div class="modal">
+    <div class="modal-h"><strong>騎縫效果預覽</strong><span class="tip">模擬把紙張錯開疊起來的樣子</span><button class="btn" id="rsClose">關閉</button></div>
+    <div class="modal-b" id="rsModalBody"></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+// ---------- state ----------
+let pdfBytes=null, pdfDoc=null, pdfName="", pageNo=1, pageCount=0, zoom=1;
+let baseW=0, baseH=0;           // page size at scale 1 (rotated, CSS px units == PDF points)
+let placements=[];              // {id,page,img(dataURL),fx,fy,fw,fh}
+let library=[];                 // {id,src(dataURL),w,h}
+let selected=null;
+let downloadsCap=undefined;
+
+// ---------- mobile: two views (tools / page) ----------
+const isMobile=()=>window.matchMedia("(max-width:820px)").matches;
+function showView(v){document.body.dataset.view=v;$("tabTools").classList.toggle("on",v==="tools");$("tabPage").classList.toggle("on",v==="page");
+  if(v==="page"&&pdfDoc)fitZoom();window.scrollTo(0,0);}
+$("tabTools").onclick=()=>showView("tools");$("tabPage").onclick=()=>showView("page");
+document.body.dataset.view="tools";
+function fitZoom(){ // on a phone, shrink the page to the screen width
+  if(!isMobile()||!baseW)return;
+  const z=Math.max(0.3,Math.min(1,(window.innerWidth-28)/baseW));
+  if(Math.abs(z-zoom)>0.01){zoom=z;$("zoom").value=Math.round(z*100);$("zoomOut").value=Math.round(z*100)+"%";renderPage();}
+}
+window.addEventListener("resize",()=>{if(isMobile())fitZoom();});
+// ---------- helpers ----------
+let toastT=null;
+const msg=(t,cls="")=>{const m=$("msg");m.textContent=t;m.className="msg "+cls;
+  const tt=$("toast");if(t){tt.textContent=t;tt.className="toast show "+cls;clearTimeout(toastT);toastT=setTimeout(()=>tt.className="toast",2600);}};
+function readFile(file,as="arrayBuffer"){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;as==="dataURL"?r.readAsDataURL(file):r.readAsArrayBuffer(file);});}
+function dataURLToBytes(u){const b=atob(u.slice(u.indexOf(",")+1));const a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
+function saveLib(){try{localStorage.setItem("stampLib",JSON.stringify(library));}catch(e){}}
+function loadLib(){try{const v=JSON.parse(localStorage.getItem("stampLib")||"[]");if(Array.isArray(v))library=v;}catch(e){library=[];}}
+
+// ---------- drop zones ----------
+function wireDrop(zone,input,onFiles){
+  zone.addEventListener("click",()=>input.click());
+  zone.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();input.click();}});
+  input.addEventListener("change",()=>{if(input.files.length)onFiles(input.files);input.value="";});
+  ["dragenter","dragover"].forEach(ev=>zone.addEventListener(ev,e=>{e.preventDefault();zone.classList.add("over");}));
+  ["dragleave","drop"].forEach(ev=>zone.addEventListener(ev,e=>{e.preventDefault();zone.classList.remove("over");}));
+  zone.addEventListener("drop",e=>{if(e.dataTransfer.files.length)onFiles(e.dataTransfer.files);});
+}
+// whole-stage drop: PDF or image
+["dragenter","dragover"].forEach(ev=>$("stage").addEventListener(ev,e=>e.preventDefault()));
+$("stage").addEventListener("drop",e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(!f)return;f.type==="application/pdf"?openPdf(f):f.type.startsWith("image/")&&openImage(f);});
+
+// ---------- PDF ----------
+wireDrop($("pdfDrop"),$("pdfFile"),files=>openPdf(files[0]));
+async function openPdf(file){
+  try{
+    msg("讀取 PDF 中…");
+    pdfBytes=await readFile(file);
+    pdfDoc=await pdfjsLib.getDocument({data:pdfBytes.slice(0)}).promise;
+    pdfName=file.name; pageCount=pdfDoc.numPages; pageNo=1; placements=[]; selected=null;
+    $("pdfName").textContent=file.name; $("pdfPages").textContent=pageCount+" 頁"; $("pdfInfo").hidden=false;
+    $("pdfOk").textContent="已載入"; $("pgTotal").textContent=pageCount; $("rsTo").value=pageCount; $("rsFrom").value=1;
+    $("emptyStage").style.display="none"; $("sheet").style.display="block";
+    msg("");
+    await renderPage();
+    if(isMobile()){fitZoom();showView("page");msg("PDF 已載入，回「工具」做簽章","ok");}
+    updateExportBtn();
+  }catch(e){console.error(e);msg("這個 PDF 打不開："+(e.message||e),"err");}
+}
+async function renderPage(){
+  if(!pdfDoc)return;
+  const page=await pdfDoc.getPage(pageNo);
+  const v1=page.getViewport({scale:1}); baseW=v1.width; baseH=v1.height;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const vp=page.getViewport({scale:zoom*dpr});
+  const c=$("page"); c.width=vp.width; c.height=vp.height;
+  c.style.width=(baseW*zoom)+"px"; c.style.height=(baseH*zoom)+"px";
+  await page.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+  $("pgNum").value=pageNo;
+  drawPlacements();
+}
+function gotoPage(n){n=Math.max(1,Math.min(pageCount,n|0));if(!pdfDoc||n===pageNo){$("pgNum").value=pageNo;return Promise.resolve();}pageNo=n;selected=null;return renderPage();}
+$("prev").onclick=()=>gotoPage(pageNo-1);
+$("next").onclick=()=>gotoPage(pageNo+1);
+$("pgNum").addEventListener("change",()=>gotoPage(+$("pgNum").value));
+$("zoom").addEventListener("input",()=>{zoom=$("zoom").value/100;$("zoomOut").value=Math.round(zoom*100)+"%";renderPage();});
+
+// ---------- signature maker: photo ----------
+let rawImg=null, processed=null; // processed: {dataURL,w,h}
+$("mode").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  [...$("mode").children].forEach(x=>x.classList.toggle("on",x===b));
+  $("photoMaker").hidden=b.dataset.m!=="photo"; $("drawMaker").hidden=b.dataset.m!=="draw";});
+$("color").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  [...$("color").children].forEach(x=>x.classList.toggle("on",x===b));process();});
+$("thr").addEventListener("input",()=>{$("thrOut").value=$("thr").value;process();});
+$("dsp").addEventListener("input",()=>{$("dspOut").value=$("dsp").value;process();});
+wireDrop($("imgDrop"),$("imgFile"),files=>openImage(files[0]));
+// ---- physical size: read DPI from scans (JPEG JFIF/EXIF, PNG pHYs) or PDF points ----
+let rawDpi=null; // dpi of rawImg, null = unknown (photo)
+function readDpi(buf){
+  const v=new DataView(buf);
+  try{
+    if(v.getUint32(0)===0x89504E47){ // PNG
+      let p=8;while(p+8<v.byteLength){const len=v.getUint32(p),type=String.fromCharCode(v.getUint8(p+4),v.getUint8(p+5),v.getUint8(p+6),v.getUint8(p+7));
+        if(type==="pHYs"){if(v.getUint8(p+16)===1)return v.getUint32(p+8)*0.0254;return null;}
+        if(type==="IDAT")break;p+=12+len;}
+      return null;
+    }
+    if(v.getUint16(0)===0xFFD8){ // JPEG
+      let p=2,jfif=null,exif=null;
+      while(p+4<v.byteLength){const m=v.getUint16(p);if(m===0xFFDA)break;const len=v.getUint16(p+2);
+        if(m===0xFFE0&&v.getUint32(p+4)===0x4A464946){const u=v.getUint8(p+11),x=v.getUint16(p+12);if(u===1)jfif=x;else if(u===2)jfif=x*2.54;}
+        if(m===0xFFE1&&v.getUint32(p+4)===0x45786966){const t=p+10;const le=v.getUint16(t)===0x4949;const g16=o=>v.getUint16(o,le),g32=o=>v.getUint32(o,le);
+          const ifd=t+g32(t+4);const n=g16(ifd);let xr=null,unit=2;
+          for(let i=0;i<n;i++){const e=ifd+2+i*12,tag=g16(e);
+            if(tag===0x011A){const o=t+g32(e+8);xr=g32(o)/g32(o+4);}
+            if(tag===0x0128)unit=g16(e+8);}
+          if(xr){exif=unit===3?xr*2.54:xr;}}
+        p+=2+len;}
+      return exif||jfif;
+    }
+  }catch(e){}
+  return null;
+}
+let paperCm=null; // whole-image width in cm, known only after 矩形修正 with A4/A5
+function setDpiNote(){paperCm=null;}
+async function openImage(file){
+  try{
+    if(file.type==="application/pdf"||/\.pdf$/i.test(file.name)){
+      msg("讀取簽名檔 PDF（取第 1 頁）…");
+      const d=await pdfjsLib.getDocument({data:await readFile(file)}).promise;
+      const pg=await d.getPage(1);const v1=pg.getViewport({scale:1});
+      const sc=Math.min(4,1400/Math.max(v1.width,v1.height));
+      const vp=pg.getViewport({scale:sc});
+      const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;
+      const ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);
+      await pg.render({canvasContext:ctx,viewport:vp}).promise;
+      rawImg=await loadImg(c.toDataURL("image/png"));rawDpi=72*sc;msg("");
+    }else{
+      const buf=await readFile(file);const dpi=readDpi(buf);
+      rawImg=await loadImg(await readFile(file,"dataURL"));
+      rawDpi=(dpi&&dpi>=120)?dpi:null; // 72/96 dpi means "unknown" (phone photos write that)
+    }
+    rawOrig=null;$("fixUndo").hidden=true;$("fixBtn").disabled=false;$("fixAutoBtn").disabled=false;
+    setDpiNote();process();
+  }
+  catch(e){console.error(e);msg("檔案讀不進來，換一個試試","err");}
+}
+// ---------- 矩形修正 (perspective / keystone correction) ----------
+let rawOrig=null, fixPts=null, fixScale=1;
+function lumMask(img,maxW){
+  const sc=Math.min(1,maxW/img.width),w=Math.round(img.width*sc),h=Math.round(img.height*sc);
+  const c=document.createElement("canvas");c.width=w;c.height=h;const g=c.getContext("2d");g.drawImage(img,0,0,w,h);
+  const d=g.getImageData(0,0,w,h).data,L=new Uint8Array(w*h),hist=new Uint32Array(256);
+  for(let i=0,p=0;i<d.length;i+=4,p++){L[p]=(d[i]*299+d[i+1]*587+d[i+2]*114)/1000|0;hist[L[p]]++;}
+  // Otsu threshold
+  let sum=0;for(let v=0;v<256;v++)sum+=v*hist[v];let sumB=0,wB=0,best=0,thr=128;const N=w*h;
+  for(let v=0;v<256;v++){wB+=hist[v];if(!wB)continue;const wF=N-wB;if(!wF)break;sumB+=v*hist[v];const mB=sumB/wB,mF=(sum-sumB)/wF,b=wB*wF*(mB-mF)*(mB-mF);if(b>best){best=b;thr=v;}}
+  return {w,h,sc,L,thr};
+}
+function autoCorners(img){
+  const {w,h,sc,L,thr}=lumMask(img,300);
+  const m=new Uint8Array(w*h);let bright=0;for(let p=0;p<w*h;p++){m[p]=L[p]>thr?1:0;bright+=m[p];}
+  const inset=[[0.06,0.06],[0.94,0.06],[0.94,0.94],[0.06,0.94]].map(([x,y])=>({x:x*img.width,y:y*img.height}));
+  if(bright>w*h*0.92||bright<w*h*0.08)return inset;   // whole photo is paper (or none): just inset
+  // largest bright component
+  const lab=new Int32Array(w*h);let best=[],stack=[];
+  for(let i=0;i<w*h;i++){if(!m[i]||lab[i])continue;const comp=[];stack.push(i);lab[i]=1;
+    while(stack.length){const k=stack.pop();comp.push(k);const x=k%w;for(const j of [k-w,k+w,x>0?k-1:-1,x<w-1?k+1:-1])if(j>=0&&j<w*h&&m[j]&&!lab[j]){lab[j]=1;stack.push(j);}}
+    if(comp.length>best.length)best=comp;}
+  if(best.length<w*h*0.15)return inset;
+  let tl=null,tr=null,br=null,bl=null,s1=1e9,s2=-1e9,d1=1e9,d2=-1e9;
+  for(const k of best){const x=k%w,y=k/w|0;if(x+y<s1){s1=x+y;tl=[x,y];}if(x+y>s2){s2=x+y;br=[x,y];}if(x-y<d1){d1=x-y;bl=[x,y];}if(x-y>d2){d2=x-y;tr=[x,y];}}
+  return [tl,tr,br,bl].map(([x,y])=>({x:(x+0.5)/sc,y:(y+0.5)/sc}));
+}
+function drawFix(){
+  const c=$("fixCanvas"),g=c.getContext("2d");g.drawImage(rawImg,0,0,c.width,c.height);
+  // dim outside the quad
+  g.save();g.fillStyle="rgba(0,0,0,.35)";g.beginPath();g.rect(0,0,c.width,c.height);
+  fixPts.forEach((p,i)=>{const x=p.x*fixScale,y=p.y*fixScale;i?g.lineTo(x,y):g.moveTo(x,y);});g.closePath();g.fill("evenodd");g.restore();
+  // perspective grid inside the quad: straight lines stay straight, so a crooked grid = a corner is off
+  if($("fixGrid").checked){
+    const [a,b,cc,d,e,f,gg,hh]=squareToQuad(fixPts),N=6;
+    const map=(u,v)=>{const den=gg*u+hh*v+1;return [(a*u+b*v+cc)/den*fixScale,(d*u+e*v+f)/den*fixScale];};
+    g.setLineDash([]);
+    for(let k=1;k<N;k++){
+      const mid=k===N/2;g.lineWidth=mid?1.5:1;g.strokeStyle=mid?"rgba(255,255,255,.9)":"rgba(255,255,255,.55)";
+      let p=map(k/N,0),q=map(k/N,1);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();
+      p=map(0,k/N);q=map(1,k/N);g.beginPath();g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1]);g.stroke();
+    }
+  }
+  g.lineWidth=3;g.strokeStyle="#E2594A";g.setLineDash([8,6]);g.beginPath();
+  fixPts.forEach((p,i)=>{const x=p.x*fixScale,y=p.y*fixScale;i?g.lineTo(x,y):g.moveTo(x,y);});g.closePath();g.stroke();
+  const r=c.getBoundingClientRect(),k=r.width/c.width;
+  document.querySelectorAll(".corner").forEach((el,i)=>{el.style.left=fixPts[i].x*fixScale*k+"px";el.style.top=fixPts[i].y*fixScale*k+"px";});
+}
+// ---- find the stamp's own quadrilateral from the ink mask (a stamp is a rectangle: use it as the reference) ----
+function inkQuad(){
+  if(!processed||!processed.alpha)return null;
+  const {alpha,fullW:W,fullH:H,scale:s}=processed;
+  const k=Math.max(1,Math.ceil(Math.max(W,H)/360)),w=Math.ceil(W/k),h=Math.ceil(H/k);
+  const m=new Uint8Array(w*h);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(alpha[y*W+x]>60)m[(y/k|0)*w+(x/k|0)]=1;
+  const dil=dilate(m,w,h,2);
+  const lab=new Int32Array(w*h);const comps=[];const stack=[];
+  for(let i=0;i<w*h;i++){if(!dil[i]||lab[i])continue;const id=comps.length+1;const pts=[];stack.push(i);lab[i]=id;
+    while(stack.length){const q=stack.pop();if(m[q])pts.push(q);const x=q%w;
+      for(const j of [q-w,q+w,x>0?q-1:-1,x<w-1?q+1:-1])if(j>=0&&j<w*h&&dil[j]&&!lab[j]){lab[j]=id;stack.push(j);}}
+    if(pts.length>=40){let bx0=w,by0=h,bx1=0,by1=0;for(const q of pts){const x=q%w,y=q/w|0;if(x<bx0)bx0=x;if(x>bx1)bx1=x;if(y<by0)by0=y;if(y>by1)by1=y;}
+      const touch=(bx0===0)+(by0===0)+(bx1===w-1)+(by1===h-1);   // the desk / a dark frame touches the photo edges: not a stamp
+      if(touch<2)comps.push(pts);}}
+  if(!comps.length)return null;
+  const hull=pts=>{const P=pts.map(q=>[q%w,q/w|0]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+    const cross=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);
+    const lo=[];for(const p of P){while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop();lo.push(p);}
+    const up=[];for(let i=P.length-1;i>=0;i--){const p=P[i];while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p);}
+    return lo.slice(0,-1).concat(up.slice(0,-1));};
+  const area=poly=>{let a=0;for(let i=0;i<poly.length;i++){const p=poly[i],q=poly[(i+1)%poly.length];a+=p[0]*q[1]-q[0]*p[1];}return Math.abs(a)/2;};
+  const bestQuad=hl=>{ // largest-area quadrilateral on the hull (hull thinned to <=36 points)
+    let pts=hl;if(pts.length>36){const step=pts.length/36;pts=[];for(let i=0;i<36;i++)pts.push(hl[Math.floor(i*step)]);}
+    const n=pts.length;let best=0,bq=null;
+    for(let a=0;a<n;a++)for(let b=a+1;b<n;b++)for(let c=b+1;c<n;c++)for(let d=c+1;d<n;d++){const A=area([pts[a],pts[b],pts[c],pts[d]]);if(A>best){best=A;bq=[pts[a],pts[b],pts[c],pts[d]];}}
+    return {q:bq,A:best};};
+  let pick=null,score=-1,pickBig=null,scoreBig=-1;
+  for(const pts of comps){const hl=hull(pts);if(hl.length<4)continue;const hA=area(hl);const {q,A}=bestQuad(hl);if(!q)continue;
+    const big=hA>w*h*0.55;   // the paper's own outline (its edge against the desk) — only use it if nothing else is there
+    // how rectangle-like: quad fills hull, hull is fat (not a thin signature), decent size
+    const bb=q.reduce((r,p)=>[Math.min(r[0],p[0]),Math.min(r[1],p[1]),Math.max(r[2],p[0]),Math.max(r[3],p[1])],[1e9,1e9,-1e9,-1e9]);
+    const fat=Math.min(bb[2]-bb[0],bb[3]-bb[1])/Math.max(1,Math.max(bb[2]-bb[0],bb[3]-bb[1]));
+    const sc=(A/hA)*Math.pow(fat,0.5)*Math.sqrt(A);
+    if(big){if(sc>scoreBig){scoreBig=sc;pickBig=q;}}else if(sc>score){score=sc;pick=q;}}
+  if(!pick)pick=pickBig;
+  if(!pick)return null;
+  // order tl,tr,br,bl by angle around centroid, start at min x+y
+  const cx=pick.reduce((a,p)=>a+p[0],0)/4,cy=pick.reduce((a,p)=>a+p[1],0)/4;
+  pick.sort((p,q)=>Math.atan2(p[1]-cy,p[0]-cx)-Math.atan2(q[1]-cy,q[0]-cx));
+  let i0=0,best=1e9;pick.forEach((p,i)=>{if(p[0]+p[1]<best){best=p[0]+p[1];i0=i;}});
+  pick=pick.slice(i0).concat(pick.slice(0,i0));
+  // to raw-image coordinates (mask grid -> downscaled processed image -> raw)
+  return pick.map(([x,y])=>({x:((x+0.5)*k)/s,y:((y+0.5)*k)/s}));
+}
+// after rectifying, if the photo shows the desk around the paper, crop to the (now rectangular) paper
+function cropToPaper(oc){
+  const img={width:oc.width,height:oc.height},{w,h,sc,L,thr}=lumMask(oc,300);
+  const m=new Uint8Array(w*h);let bright=0;for(let p=0;p<w*h;p++){m[p]=L[p]>thr?1:0;bright+=m[p];}
+  if(bright>w*h*0.9||bright<w*h*0.1)return;
+  const lab=new Uint8Array(w*h);let best=null,stack=[];
+  for(let i=0;i<w*h;i++){if(!m[i]||lab[i])continue;let n=0,x0=w,y0=h,x1=0,y1=0;stack.push(i);lab[i]=1;
+    while(stack.length){const k=stack.pop();n++;const x=k%w,y=k/w|0;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+      for(const j of [k-w,k+w,x>0?k-1:-1,x<w-1?k+1:-1])if(j>=0&&j<w*h&&m[j]&&!lab[j]){lab[j]=1;stack.push(j);}}
+    if(!best||n>best.n)best={n,x0,y0,x1,y1};}
+  if(!best||best.n<w*h*0.12)return;
+  const pad=2,X0=Math.max(0,(best.x0-pad)/sc),Y0=Math.max(0,(best.y0-pad)/sc),X1=Math.min(oc.width,(best.x1+1+pad)/sc),Y1=Math.min(oc.height,(best.y1+1+pad)/sc);
+  const t=document.createElement("canvas");t.width=Math.round(X1-X0);t.height=Math.round(Y1-Y0);t.getContext("2d").drawImage(oc,X0,Y0,X1-X0,Y1-Y0,0,0,t.width,t.height);
+  oc.width=t.width;oc.height=t.height;oc.getContext("2d").drawImage(t,0,0);
+}
+function findCorners(){return inkQuad()||autoCorners(rawImg);}
+function openFix(){
+  if(!rawImg)return;
+  const c=$("fixCanvas");fixScale=Math.min(1,820/rawImg.width,560/rawImg.height);
+  c.width=Math.round(rawImg.width*fixScale);c.height=Math.round(rawImg.height*fixScale);
+  fixPts=findCorners();
+  $("fixOverlay").hidden=false;requestAnimationFrame(drawFix);
+}
+$("fixBtn").onclick=openFix;
+$("fixAuto").onclick=()=>{fixPts=findCorners();drawFix();};
+$("fixAutoBtn").onclick=()=>{
+  if(!rawImg)return;
+  const q=inkQuad();
+  if(!q){msg("找不到明顯的矩形印章，請用「手動修正」拖四個角","err");return;}
+  applyQuad(q);
+};
+$("fixCancel").onclick=()=>$("fixOverlay").hidden=true;
+$("fixOverlay").addEventListener("click",e=>{if(e.target===$("fixOverlay"))$("fixOverlay").hidden=true;});
+window.addEventListener("resize",()=>{if(!$("fixOverlay").hidden)drawFix();});
+document.querySelectorAll(".corner").forEach(el=>{
+  el.addEventListener("pointerdown",e=>{
+    e.preventDefault();el.setPointerCapture(e.pointerId);const i=+el.dataset.i;
+    const move=ev=>{const r=$("fixCanvas").getBoundingClientRect();const k=r.width/$("fixCanvas").width;
+      fixPts[i]={x:Math.max(0,Math.min(rawImg.width,(ev.clientX-r.left)/k/fixScale)),y:Math.max(0,Math.min(rawImg.height,(ev.clientY-r.top)/k/fixScale))};drawFix();};
+    const up=()=>{el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);el.removeEventListener("pointercancel",up);};
+    el.addEventListener("pointermove",move);el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up);
+  });
+});
+$("fixGrid").addEventListener("change",drawFix);
+// homography: unit square -> quad (tl,tr,br,bl), as 8 params
+function squareToQuad(q){
+  const [p0,p1,p2,p3]=q;
+  const dx1=p1.x-p2.x,dx2=p3.x-p2.x,dy1=p1.y-p2.y,dy2=p3.y-p2.y;
+  const sx=p0.x-p1.x+p2.x-p3.x,sy=p0.y-p1.y+p2.y-p3.y;
+  const den=dx1*dy2-dx2*dy1;
+  const g=(sx*dy2-dx2*sy)/den,h=(dx1*sy-sx*dy1)/den;
+  const a=p1.x-p0.x+g*p1.x,b=p3.x-p0.x+h*p3.x,c=p0.x;
+  const d=p1.y-p0.y+g*p1.y,e=p3.y-p0.y+h*p3.y,f=p0.y;
+  return [a,b,c,d,e,f,g,h];
+}
+const M3=h=>[[h[0],h[1],h[2]],[h[3],h[4],h[5]],[h[6],h[7],1]];
+function inv3(m){const [[a,b,c],[d,e,f],[g,h,i]]=m;const A=e*i-f*h,B=-(d*i-f*g),C=d*h-e*g,det=a*A+b*B+c*C;
+  return [[A/det,-(b*i-c*h)/det,(b*f-c*e)/det],[B/det,(a*i-c*g)/det,-(a*f-c*d)/det],[C/det,-(a*h-b*g)/det,(a*e-b*d)/det]];}
+const mul3=(m,n)=>m.map((r,i)=>[0,1,2].map(j=>r[0]*n[0][j]+r[1]*n[1][j]+r[2]*n[2][j]));
+const ap3=(m,x,y)=>{const w=m[2][0]*x+m[2][1]*y+m[2][2];return [(m[0][0]*x+m[0][1]*y+m[0][2])/w,(m[1][0]*x+m[1][1]*y+m[1][2])/w];};
+// warp the WHOLE image so that quad q becomes a true rectangle (square if it is nearly square); everything else comes along
+function applyQuad(q){
+  const len=(p,r)=>Math.hypot(p.x-r.x,p.y-r.y);
+  let W=(len(q[0],q[1])+len(q[3],q[2]))/2,Hh=(len(q[0],q[3])+len(q[1],q[2]))/2;
+  const ratio=W/Hh;if(ratio>0.78&&ratio<1.28){const m=(W+Hh)/2;W=m;Hh=m;}
+  const cx=(q[0].x+q[1].x+q[2].x+q[3].x)/4,cy=(q[0].y+q[1].y+q[2].y+q[3].y)/4;
+  const rect=[{x:cx-W/2,y:cy-Hh/2},{x:cx+W/2,y:cy-Hh/2},{x:cx+W/2,y:cy+Hh/2},{x:cx-W/2,y:cy+Hh/2}];
+  const Mq=M3(squareToQuad(q)),Mr=M3(squareToQuad(rect));
+  const fwd=mul3(Mr,inv3(Mq));            // raw -> corrected
+  const back=mul3(Mq,inv3(Mr));           // corrected -> raw
+  const sw=rawImg.width,sh=rawImg.height;
+  const cs=[[0,0],[sw,0],[sw,sh],[0,sh]].map(([x,y])=>ap3(fwd,x,y));
+  let x0=Math.min(...cs.map(p=>p[0])),x1=Math.max(...cs.map(p=>p[0])),y0=Math.min(...cs.map(p=>p[1])),y1=Math.max(...cs.map(p=>p[1]));
+  // guard against wild perspective blowing the canvas up: keep the output within 1.6x the original extent
+  const lim=1.6;x0=Math.max(x0,cx-sw*lim/2);x1=Math.min(x1,cx+sw*lim/2);y0=Math.max(y0,cy-sh*lim/2);y1=Math.min(y1,cy+sh*lim/2);
+  const maxSide=1800,sc=Math.min(1,maxSide/Math.max(x1-x0,y1-y0));
+  const OW=Math.max(8,Math.round((x1-x0)*sc)),OH=Math.max(8,Math.round((y1-y0)*sc));
+  const sc0=document.createElement("canvas");sc0.width=sw;sc0.height=sh;const g0=sc0.getContext("2d");g0.drawImage(rawImg,0,0);
+  const src=g0.getImageData(0,0,sw,sh).data;
+  const out=new ImageData(OW,OH),o=out.data;
+  for(let y=0;y<OH;y++){const Y=y0+(y+0.5)/sc;
+    for(let x=0;x<OW;x++){const X=x0+(x+0.5)/sc;
+      const [sx,sy]=ap3(back,X,Y);const xi=Math.floor(sx),yi=Math.floor(sy),tx=sx-xi,ty=sy-yi;const i=(y*OW+x)*4;
+      if(xi<0||yi<0||xi>=sw-1||yi>=sh-1){o[i]=o[i+1]=o[i+2]=255;o[i+3]=255;continue;}
+      const i00=(yi*sw+xi)*4,i10=i00+4,i01=i00+sw*4,i11=i01+4;
+      for(let k=0;k<3;k++)o[i+k]=(src[i00+k]*(1-tx)+src[i10+k]*tx)*(1-ty)+(src[i01+k]*(1-tx)+src[i11+k]*tx)*ty;
+      o[i+3]=255;}}
+  const oc=document.createElement("canvas");oc.width=OW;oc.height=OH;oc.getContext("2d").putImageData(out,0,0);
+  if(!rawOrig)rawOrig=rawImg;
+  cropToPaper(oc);
+  return loadImg(oc.toDataURL("image/png")).then(im=>{
+    rawImg=im;rawDpi=null;paperCm=null;$("fixOverlay").hidden=true;$("fixUndo").hidden=false;
+    process();msg("矩形修正完成"+(ratio>0.78&&ratio<1.28?"（已拉成正方形）":""),"ok");
+  });
+}
+$("fixApply").onclick=()=>applyQuad(fixPts);
+$("fixUndo").onclick=()=>{if(!rawOrig)return;rawImg=rawOrig;rawOrig=null;$("fixUndo").hidden=true;setDpiNote();process();};
+
+// effective dpi of the *processed* image (after downscale) — from the cm box if filled, else the file's dpi
+function procDpi(){
+  if(!processed)return null;
+  if(paperCm>0)return processed.srcW/(paperCm/2.54);
+  return rawDpi?rawDpi*processed.scale:null;
+}
+// local background (paper) estimate per channel: block-wise high percentile -> max filter -> blur -> upsample
+function paperMap(d,w,h){
+  const B=16,gw=Math.ceil(w/B),gh=Math.ceil(h/B);
+  const ch=[new Float32Array(gw*gh),new Float32Array(gw*gh),new Float32Array(gw*gh)];
+  const buf=[[],[],[]];
+  for(let gy=0;gy<gh;gy++)for(let gx=0;gx<gw;gx++){
+    for(let k=0;k<3;k++)buf[k].length=0;
+    for(let y=gy*B;y<Math.min(h,gy*B+B);y+=2)for(let x=gx*B;x<Math.min(w,gx*B+B);x+=2){const i=(y*w+x)*4;buf[0].push(d[i]);buf[1].push(d[i+1]);buf[2].push(d[i+2]);}
+    for(let k=0;k<3;k++){const a=buf[k].sort((p,q)=>p-q);ch[k][gy*gw+gx]=a[Math.floor(a.length*0.85)];}
+  }
+  // max filter radius 1 block (so thick strokes don't pull the paper estimate down), then 2x box blur
+  const filt=src=>{const t=new Float32Array(src.length),o=new Float32Array(src.length);
+    for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){let m=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const yy=y+dy,xx=x+dx;if(yy<0||yy>=gh||xx<0||xx>=gw)continue;m=Math.max(m,src[yy*gw+xx]);}t[y*gw+x]=m;}
+    for(let pass=0;pass<2;pass++){const from=pass?o:t,to=pass?t:o;
+      for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){let sum=0,n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const yy=y+dy,xx=x+dx;if(yy<0||yy>=gh||xx<0||xx>=gw)continue;sum+=from[yy*gw+xx];n++;}to[y*gw+x]=sum/n;}}
+    return t;};
+  const f=ch.map(filt);
+  // bilinear upsample to full res
+  const out=new Float32Array(w*h*3);
+  for(let y=0;y<h;y++){const fy=Math.min(gh-1,Math.max(0,(y+0.5)/B-0.5)),y0=Math.floor(fy),y1=Math.min(gh-1,y0+1),ty=fy-y0;
+    for(let x=0;x<w;x++){const fx=Math.min(gw-1,Math.max(0,(x+0.5)/B-0.5)),x0=Math.floor(fx),x1=Math.min(gw-1,x0+1),tx=fx-x0;const o=(y*w+x)*3;
+      for(let k=0;k<3;k++){const a=f[k][y0*gw+x0],b=f[k][y0*gw+x1],c=f[k][y1*gw+x0],e=f[k][y1*gw+x1];out[o+k]=(a*(1-tx)+b*tx)*(1-ty)+(c*(1-tx)+e*tx)*ty;}}}
+  return out;
+}
+// drop connected blobs smaller than minPx (paper grain, dust)
+function despeckle(alpha,w,h,minPx){
+  if(minPx<=1)return;
+  const seen=new Uint8Array(w*h),stack=[];
+  for(let i=0;i<w*h;i++){
+    if(seen[i]||alpha[i]<40)continue;
+    const comp=[];stack.push(i);seen[i]=1;
+    while(stack.length){const k=stack.pop();comp.push(k);const x=k%w;
+      const nb=[k-w,k+w];if(x>0)nb.push(k-1);if(x<w-1)nb.push(k+1);
+      for(const j of nb){if(j>=0&&j<w*h&&!seen[j]&&alpha[j]>=40){seen[j]=1;stack.push(j);}}}
+    if(comp.length<minPx)for(const k of comp)alpha[k]=0;
+  }
+}
+function process(){
+  if(!rawImg)return;
+  const maxSide=1200, s=Math.min(1,maxSide/Math.max(rawImg.width,rawImg.height));
+  const w=Math.round(rawImg.width*s), h=Math.round(rawImg.height*s);
+  const c=document.createElement("canvas"); c.width=w; c.height=h;
+  const ctx=c.getContext("2d"); ctx.drawImage(rawImg,0,0,w,h);
+  const im=ctx.getImageData(0,0,w,h), d=im.data;
+  const P=paperMap(d,w,h);                       // local paper colour (r,g,b) per pixel
+  const thr=$("thr").value/100;                  // 0.05..0.95  higher = only darker/clearer ink kept
+  const ds=+$("dsp").value;                      // despeckle 0..10
+  const mode=$("color").querySelector(".on").dataset.c;
+  const alpha=new Uint8Array(w*h);
+  const rr=new Uint8ClampedArray(w*h*3);
+  // paper-tint-free chroma baseline: median of chroma over the image (a colour cast counts as paper)
+  const satHist=new Uint32Array(256);
+  for(let i=0;i<d.length;i+=4){const o=(i/4)*3;const r=d[i]/Math.max(1,P[o])*255,g=d[i+1]/Math.max(1,P[o+1])*255,b=d[i+2]/Math.max(1,P[o+2])*255;satHist[Math.min(255,Math.max(0,Math.max(r,g,b)-Math.min(r,g,b))|0)]++;}
+  let acc=0,satBase=0;for(let v=0;v<256;v++){acc+=satHist[v];if(acc>=w*h*0.5){satBase=v;break;}}
+  const darkFull=0.12+thr*0.55;                  // how much darker than paper counts as solid ink
+  const satFull=30+thr*100;
+  for(let i=0,p=0;i<d.length;i+=4,p++){
+    const o=p*3;
+    // flat-field: divide by local paper colour -> paper becomes ~255 everywhere, shadows cancel out
+    const r=Math.min(255,d[i]/Math.max(1,P[o])*255),g=Math.min(255,d[i+1]/Math.max(1,P[o+1])*255),b=Math.min(255,d[i+2]/Math.max(1,P[o+2])*255);
+    const lum=(r*299+g*587+b*114)/1000;
+    const dark=(255-lum)/255;
+    const sat=Math.max(0,Math.max(r,g,b)-Math.min(r,g,b)-satBase);
+    let a=Math.max(dark/darkFull,sat/satFull);
+    a=Math.max(0,Math.min(1,a));
+    a=a<0.2?0:(a-0.2)/0.8;                    // soft knee: kill grain, keep anti-aliased edges
+    alpha[p]=Math.round(a*255);
+    rr[o]=r;rr[o+1]=g;rr[o+2]=b;
+  }
+  despeckle(alpha,w,h,Math.round(ds*ds*3*Math.max(0.3,(w*h)/(1200*900))));
+  let minX=w,minY=h,maxX=-1,maxY=-1;
+  for(let p=0,i=0;p<w*h;p++,i+=4){
+    const a=alpha[p];
+    if(a>0){
+      const o=p*3;
+      if(mode==="black"){d[i]=20;d[i+1]=20;d[i+2]=20;}
+      else if(mode==="red"){d[i]=190;d[i+1]=40;d[i+2]=35;}
+      else if(mode==="blue"){d[i]=30;d[i+1]=70;d[i+2]=170;}
+      else{ // un-premultiply: the true ink colour is what remains after removing the paper showing through
+        const af=Math.max(a/255,0.35);
+        d[i]=Math.max(0,255-(255-rr[o])/af);d[i+1]=Math.max(0,255-(255-rr[o+1])/af);d[i+2]=Math.max(0,255-(255-rr[o+2])/af);
+      }
+      d[i+3]=a;
+      const x=p%w,y=p/w|0; if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;
+    }else d[i+3]=0;
+  }
+  const pv=$("imgPreview"); pv.innerHTML="";
+  if(maxX<0){pv.innerHTML='<div class="hint">找不到筆跡，把去背強度調低一點</div>';processed=null;$("addPhoto").disabled=true;return;}
+  ctx.putImageData(im,0,0);
+  const pad=6, cx=Math.max(0,minX-pad), cy=Math.max(0,minY-pad), cw=Math.min(w,maxX+pad)-cx, ch=Math.min(h,maxY+pad)-cy;
+  const out=document.createElement("canvas"); out.width=cw; out.height=ch;
+  out.getContext("2d").drawImage(c,cx,cy,cw,ch,0,0,cw,ch);
+  processed={dataURL:out.toDataURL("image/png"),w:cw,h:ch,canvas:out,scale:s,srcW:w,alpha,fullW:w,fullH:h};
+  const img=new Image(); img.src=processed.dataURL; pv.appendChild(img);
+  $("addPhoto").disabled=false;$("splitBtn").disabled=false;
+  if(!$("splitBox").hidden)splitPieces();
+}
+$("addPhoto").onclick=()=>{if(processed)addToLib(processed);};
+
+// ---------- split one photo into several stamps ----------
+let pieces=[];
+$("splitBtn").onclick=()=>{$("splitBox").hidden=false;splitPieces();};
+$("gap").addEventListener("input",()=>{$("gapOut").value=$("gap").value+"%";splitPieces();});
+function dilate(mask,w,h,r){
+  if(r<=0)return mask;
+  const t=new Uint8Array(w*h),o=new Uint8Array(w*h);
+  for(let y=0;y<h;y++){let run=-1;const row=y*w;
+    for(let x=0;x<w;x++){if(mask[row+x])run=x;if(run>=0&&x-run<=r)t[row+x]=1;}
+    run=-1;for(let x=w-1;x>=0;x--){if(mask[row+x])run=x;if(run>=0&&run-x<=r)t[row+x]=1;}}
+  for(let x=0;x<w;x++){let run=-1;
+    for(let y=0;y<h;y++){if(t[y*w+x])run=y;if(run>=0&&y-run<=r)o[y*w+x]=1;}
+    run=-1;for(let y=h-1;y>=0;y--){if(t[y*w+x])run=y;if(run>=0&&run-y<=r)o[y*w+x]=1;}}
+  return o;
+}
+function splitPieces(){
+  pieces=[];const el=$("pieces");el.innerHTML="";
+  if(!processed)return;
+  const src=processed.canvas,W=src.width,H=src.height;
+  const s=Math.min(1,420/Math.max(W,H)),w=Math.max(1,Math.round(W*s)),h=Math.max(1,Math.round(H*s));
+  const c=document.createElement("canvas");c.width=w;c.height=h;const ctx=c.getContext("2d");ctx.drawImage(src,0,0,w,h);
+  const a=ctx.getImageData(0,0,w,h).data,mask=new Uint8Array(w*h);
+  for(let i=0;i<w*h;i++)mask[i]=a[i*4+3]>40?1:0;
+  const r=Math.round(($("gap").value/100)*Math.max(w,h));
+  const dil=dilate(mask,w,h,r),lab=new Int32Array(w*h),boxes=[];const stack=[];
+  for(let i=0;i<w*h;i++){
+    if(!dil[i]||lab[i])continue;
+    const id=boxes.length+1;let x0=w,y0=h,x1=0,y1=0,ink=0;stack.push(i);lab[i]=id;
+    while(stack.length){const k=stack.pop(),x=k%w,y=k/w|0;
+      if(mask[k]){ink++;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
+      if(x>0&&dil[k-1]&&!lab[k-1]){lab[k-1]=id;stack.push(k-1);}
+      if(x<w-1&&dil[k+1]&&!lab[k+1]){lab[k+1]=id;stack.push(k+1);}
+      if(y>0&&dil[k-w]&&!lab[k-w]){lab[k-w]=id;stack.push(k-w);}
+      if(y<h-1&&dil[k+w]&&!lab[k+w]){lab[k+w]=id;stack.push(k+w);}}
+    if(ink>=Math.max(12,w*h*0.0008)&&x1-x0>=3&&y1-y0>=3)boxes.push({x0,y0,x1,y1,ink});
+  }
+  boxes.sort((p,q)=>(p.x0-q.x0)||(p.y0-q.y0));
+  if(!boxes.length){el.innerHTML='<div class="none">分不出東西，把合併距離調小一點</div>';return;}
+  const pad=4;
+  boxes.forEach((b,i)=>{
+    const x=Math.max(0,b.x0/s-pad),y=Math.max(0,b.y0/s-pad),cw=Math.min(W,(b.x1+1)/s+pad)-x,ch=Math.min(H,(b.y1+1)/s+pad)-y;
+    const out=document.createElement("canvas");out.width=Math.round(cw);out.height=Math.round(ch);
+    out.getContext("2d").drawImage(src,x,y,cw,ch,0,0,out.width,out.height);
+    const piece={dataURL:out.toDataURL("image/png"),w:out.width,h:out.height,box:{x,y,cw,ch}};pieces.push(piece);
+    const card=document.createElement("div");card.className="piece";
+    card.innerHTML='<span class="tag">#'+(i+1)+'</span><div class="pic"><img alt="分拆 '+(i+1)+'"></div><button class="btn">加入</button>';
+    card.querySelector("img").src=piece.dataURL;
+    card.querySelector("button").onclick=()=>addToLib(piece);
+    el.appendChild(card);
+  });
+  // annotate preview with numbered boxes
+  const pv=$("imgPreview");pv.innerHTML="";
+  const ann=document.createElement("canvas");ann.width=W;ann.height=H;const g=ann.getContext("2d");g.drawImage(src,0,0);
+  const lw=Math.max(2,W/300);g.lineWidth=lw;g.strokeStyle="#B93A2E";g.fillStyle="#B93A2E";g.font="bold "+Math.max(14,W/25)+"px sans-serif";g.textBaseline="top";
+  pieces.forEach((p,i)=>{g.setLineDash([lw*3,lw*2]);g.strokeRect(p.box.x,p.box.y,p.box.cw,p.box.ch);g.fillText("#"+(i+1),p.box.x+lw*2,p.box.y+lw*2);});
+  pv.appendChild(ann);
+  ann.style.cursor="crosshair";ann.title="在圖上拖曳框選，可手動切出一個簽章";
+  let st=null;const snap=g.getImageData(0,0,W,H);
+  const pt=e=>{const r=ann.getBoundingClientRect();return{x:Math.max(0,Math.min(W,(e.clientX-r.left)*W/r.width)),y:Math.max(0,Math.min(H,(e.clientY-r.top)*H/r.height))};};
+  ann.addEventListener("pointerdown",e=>{e.preventDefault();st=pt(e);ann.setPointerCapture(e.pointerId);});
+  ann.addEventListener("pointermove",e=>{if(!st)return;const p=pt(e);g.putImageData(snap,0,0);g.setLineDash([]);g.strokeStyle="#1F6FB9";g.strokeRect(st.x,st.y,p.x-st.x,p.y-st.y);});
+  ann.addEventListener("pointerup",e=>{if(!st)return;const p=pt(e);const x=Math.min(st.x,p.x),y=Math.min(st.y,p.y),cw=Math.abs(p.x-st.x),ch=Math.abs(p.y-st.y);st=null;g.putImageData(snap,0,0);
+    if(cw<8||ch<8)return;addManualPiece(x,y,cw,ch);});
+}
+function addManualPiece(x,y,cw,ch){
+  const src=processed.canvas;
+  const out=document.createElement("canvas");out.width=Math.round(cw);out.height=Math.round(ch);
+  out.getContext("2d").drawImage(src,x,y,cw,ch,0,0,out.width,out.height);
+  // trim transparent margins
+  const d=out.getContext("2d").getImageData(0,0,out.width,out.height).data;let x0=out.width,y0=out.height,x1=-1,y1=-1;
+  for(let i=3;i<d.length;i+=4)if(d[i]>0){const px=(i>>2)%out.width,py=(i>>2)/out.width|0;if(px<x0)x0=px;if(px>x1)x1=px;if(py<y0)y0=py;if(py>y1)y1=py;}
+  if(x1<0){msg("框裡沒有筆跡","err");return;}
+  const t=document.createElement("canvas");t.width=x1-x0+1+8;t.height=y1-y0+1+8;t.getContext("2d").drawImage(out,x0-4,y0-4,t.width,t.height,0,0,t.width,t.height);
+  const piece={dataURL:t.toDataURL("image/png"),w:t.width,h:t.height};pieces.push(piece);
+  const el=$("pieces");if(el.querySelector(".none"))el.innerHTML="";
+  const card=document.createElement("div");card.className="piece";
+  card.innerHTML='<span class="tag">手動 #'+pieces.length+'</span><div class="pic"><img alt="手動框選"></div><button class="btn">加入</button>';
+  card.querySelector("img").src=piece.dataURL;card.querySelector("button").onclick=()=>addToLib(piece);el.appendChild(card);
+  msg("已框出一個，按「加入」放進簽章庫","ok");
+}
+$("addAll").onclick=()=>{if(!pieces.length)return;pieces.forEach(p=>addToLib(p));msg("已加入 "+pieces.length+" 個簽章","ok");};
+
+// ---------- signature maker: draw ----------
+const pad=$("pad"), pctx=pad.getContext("2d"); let drawing=false, dirty=false, last=null;
+pctx.lineCap="round";pctx.lineJoin="round";pctx.strokeStyle="#161616";
+const padPt=e=>{const r=pad.getBoundingClientRect();return{x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height,p:e.pressure||0.5};};
+pad.addEventListener("pointerdown",e=>{drawing=true;last=padPt(e);pad.setPointerCapture(e.pointerId);});
+pad.addEventListener("pointermove",e=>{if(!drawing)return;const p=padPt(e);pctx.lineWidth=3+p.p*4;pctx.beginPath();pctx.moveTo(last.x,last.y);pctx.lineTo(p.x,p.y);pctx.stroke();last=p;dirty=true;});
+["pointerup","pointercancel","pointerleave"].forEach(ev=>pad.addEventListener(ev,()=>drawing=false));
+$("padClear").onclick=()=>{pctx.clearRect(0,0,pad.width,pad.height);dirty=false;};
+$("addDraw").onclick=()=>{
+  if(!dirty){msg("先在白框裡簽個名","err");return;}
+  const im=pctx.getImageData(0,0,pad.width,pad.height).data;let minX=pad.width,minY=pad.height,maxX=-1,maxY=-1;
+  for(let i=3;i<im.length;i+=4)if(im[i]>0){const x=(i>>2)%pad.width,y=(i>>2)/pad.width|0;if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;}
+  const p=8,cx=Math.max(0,minX-p),cy=Math.max(0,minY-p),cw=Math.min(pad.width,maxX+p)-cx,ch=Math.min(pad.height,maxY+p)-cy;
+  const out=document.createElement("canvas");out.width=cw;out.height=ch;out.getContext("2d").drawImage(pad,cx,cy,cw,ch,0,0,cw,ch);
+  addToLib({dataURL:out.toDataURL("image/png"),w:cw,h:ch},cw/(4/2.54)); // hand-drawn: default 4 cm wide
+  pctx.clearRect(0,0,pad.width,pad.height);dirty=false;
+};
+
+// ---------- library ----------
+const cmOf=item=>item.dpi?item.w/item.dpi*2.54:null;
+function addToLib(p,dpi){
+  if(dpi===undefined)dpi=procDpi();
+  library.push({id:Date.now()+""+Math.random().toString(36).slice(2,6),src:p.dataURL,w:p.w,h:p.h,dpi:dpi||null});
+  saveLib();renderLib();renderRsSelect();
+  msg(dpi?"已加入簽章庫（實際寬 "+(p.w/dpi*2.54).toFixed(2)+" cm），點它就會貼到頁面上":"已加入簽章庫，請在縮圖下方填印章的實際寬度","ok");
+}
+function renderLib(){
+  const el=$("lib"); el.innerHTML="";
+  if(!library.length){el.innerHTML='<div class="empty">還沒有簽章。上面做好一個就會存在這裡，下次打開還在。</div>';return;}
+  library.forEach(item=>{
+    const b=document.createElement("button");b.className="stamp";b.title="貼到目前頁面";
+    const cm=cmOf(item);
+    b.innerHTML='<div class="pic"><img alt="簽章"></div><button class="x" title="從簽章庫刪除">✕</button><label class="szrow" title="印章實際寬度，高度會自動照比例">寬 <input type="number" step="0.1" min="0.2" placeholder="?"> cm</label>';
+    b.querySelector("img").src=item.src;
+    const inp=b.querySelector("input");if(cm)inp.value=cm.toFixed(1);
+    inp.addEventListener("click",e=>e.stopPropagation());
+    inp.addEventListener("pointerdown",e=>e.stopPropagation());
+    inp.addEventListener("change",()=>{const v=parseFloat(inp.value);item.dpi=v>0?item.w/(v/2.54):null;saveLib();renderRsSelect();
+      placements.filter(p=>p.src===item.src&&item.dpi).forEach(p=>{p.fw=Math.min(1-p.fx,(item.w/item.dpi*72)/baseW);p.fh=p.fw*p.ratio*(baseW/baseH);});
+      if(pdfDoc)drawPlacements();msg(v>0?"已設定寬 "+v+" cm，高度自動照比例；已貼上的也一起更新":"","ok");});
+    b.onclick=e=>{if(e.target.classList.contains("x")){library=library.filter(x=>x!==item);saveLib();renderLib();renderRsSelect();return;}place(item);};
+    el.appendChild(b);
+  });
+}
+
+// ---------- 騎縫章 (paging seal) ----------
+function renderRsSelect(){
+  const sel=$("rsStamp");const cur=sel.value;sel.innerHTML="";
+  if(!library.length){sel.innerHTML='<option value="">（簽章庫是空的）</option>';return;}
+  library.forEach((it,i)=>{const o=document.createElement("option");o.value=it.id;const cm=cmOf(it);o.textContent="簽章 #"+(i+1)+(cm?"（"+cm.toFixed(1)+" cm）":"（尺寸未知）");sel.appendChild(o);});
+  if([...sel.options].some(o=>o.value===cur))sel.value=cur;
+  rsSyncCm();
+}
+function rsSyncCm(){const it=library.find(x=>x.id===$("rsStamp").value);if(!it)return;const cm=cmOf(it);$("rsCm").value=(cm||4).toFixed(1);}
+$("rsStamp").addEventListener("change",rsSyncCm);
+$("rsEdge").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...$("rsEdge").children].forEach(x=>x.classList.toggle("on",x===b));});
+$("rsPos").addEventListener("input",()=>$("rsPosOut").value=$("rsPos").value+"%");
+$("rsClear").onclick=()=>{placements=placements.filter(p=>!p.rs);selected=null;drawPlacements();updateExportBtn();msg("已移除所有騎縫章","ok");};
+$("rsGo").onclick=async()=>{
+  if(!pdfDoc){msg("先選一個 PDF","err");return;}
+  const btn=$("rsGo"),label=btn.textContent;btn.disabled=true;btn.textContent="蓋章中…";
+  try{await rsRun();}finally{btn.textContent="✓ 蓋好了";setTimeout(()=>{btn.textContent=label;btn.disabled=false;},1500);}
+};
+async function rsRun(){
+  const it=library.find(x=>x.id===$("rsStamp").value);if(!it){msg("簽章庫裡還沒有章","err");return;}
+  let from=Math.max(1,+$("rsFrom").value|0),to=Math.min(pageCount,+$("rsTo").value|0);
+  if(!(to>=from)){msg("頁數範圍不對","err");return;}
+  if(to===from){msg("騎縫章至少要跨 2 頁","err");return;}
+  const per=Math.max(2,Math.min(20,+$("rsPer").value|0)),cm=parseFloat($("rsCm").value)||4,edge=$("rsEdge").querySelector(".on").dataset.e;
+  const img=await loadImg(it.src);
+  // page sizes may differ per page: read each page's rotated size at scale 1
+  const sizes={};for(let n=from;n<=to;n++){const pg=await pdfDoc.getPage(n);const v=pg.getViewport({scale:1});sizes[n]={w:v.width,h:v.height};}
+  const wPt=cmToPt(cm),hPt=wPt*img.height/img.width,fyPct=$("rsPos").value/100;
+  const groupId="rs"+Date.now();let made=0,groups=0;
+  // one seal covers at most `per` pages. Beyond that, the next seal shares the last page of the previous one
+  // (so the chain never breaks) and moves DOWN the page by one seal height, never sideways.
+  let gi=0;
+  for(let g=from;g<to;g+=per-1,gi++){
+    const gEnd=Math.min(to,g+per-1),n=gEnd-g+1;if(n<2)break;
+    const stripW=img.width/n;
+    for(let i=0;i<n;i++){
+      const page=g+i,k=edge==="right"?i:n-1-i;          // right edge: page 1 gets the leftmost strip
+      const c=document.createElement("canvas");c.width=Math.max(1,Math.round(stripW));c.height=img.height;
+      c.getContext("2d").drawImage(img,k*stripW,0,stripW,img.height,0,0,c.width,c.height);
+      const sz=sizes[page],fw=(wPt/n)/sz.w,fh=hPt/sz.h;
+      const gap=fh*0.25;let fy=fyPct-fh/2+gi*(fh+gap);
+      if(fy+fh>1){fy=(fy+fh-1)>0?((gi*(fh+gap))%(1-fh)):fy;}   // ran off the bottom: wrap back to the top
+      placements.push({id:groupId+"_"+gi+"_"+page,page,src:c.toDataURL("image/png"),fx:edge==="right"?1-fw:0,fy:Math.max(0,Math.min(1-fh,fy)),fw,fh,ratio:c.height/c.width,rs:groupId+"_"+gi});
+      made++;
+    }
+    groups++;
+    if(gEnd>=to)break;
+  }
+  if(pageNo!==from)await gotoPage(from);
+  drawPlacements();updateExportBtn();msg("已蓋騎縫章：第 "+from+"–"+to+" 頁，共 "+groups+" 組 "+made+" 條"+(groups>1?"（每組共用一頁銜接，往下排）":""),"ok");
+  $("rsPreview").click();
+}
+
+// ---- 騎縫 preview: render pages small, draw their stamps, stack them staggered ----
+async function renderPageThumb(n,scale){
+  const pg=await pdfDoc.getPage(n),vp=pg.getViewport({scale});
+  const c=document.createElement("canvas");c.width=Math.round(vp.width);c.height=Math.round(vp.height);
+  const g=c.getContext("2d");await pg.render({canvasContext:g,viewport:vp}).promise;
+  for(const p of placements.filter(x=>x.page===n)){const im=await loadImg(p.src);g.drawImage(im,p.fx*c.width,p.fy*c.height,p.fw*c.width,p.fh*c.height);}
+  return c;
+}
+$("rsClose").onclick=()=>$("rsOverlay").hidden=true;
+$("rsOverlay").addEventListener("click",e=>{if(e.target===$("rsOverlay"))$("rsOverlay").hidden=true;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("rsOverlay").hidden=true;});
+$("rsPreview").onclick=async()=>{
+  if(!pdfDoc){msg("先選一個 PDF","err");return;}
+  const groups=[...new Set(placements.filter(p=>p.rs).map(p=>p.rs))];
+  if(!groups.length){msg("還沒蓋騎縫章，先按「蓋騎縫章」再預覽","err");return;}
+  const body=$("rsModalBody");body.innerHTML='<p class="tip">產生預覽中…</p>';$("rsOverlay").hidden=false;
+  const frag=document.createDocumentFragment();
+  for(const gid of groups){
+    const ps=placements.filter(p=>p.rs===gid).sort((a,b)=>a.page-b.page);
+    const edgeRight=ps[0].fx>0.5,n=ps.length;
+    const scale=Math.min(1,320/baseW);
+    const thumbs=[];for(const p of ps)thumbs.push(await renderPageThumb(p.page,scale));
+    const stripPx=Math.max(4,ps[0].fw*thumbs[0].width),tw=thumbs[0].width,th=Math.max(...thumbs.map(t=>t.height));
+    const totalW=tw+stripPx*(n-1);
+    const fan=document.createElement("canvas");fan.width=Math.round(totalW);fan.height=th;const g=fan.getContext("2d");
+    // draw bottom page first (page N) so page 1 ends up on top
+    for(let i=n-1;i>=0;i--){
+      const x=edgeRight?stripPx*i:stripPx*(n-1-i);
+      g.shadowColor="rgba(0,0,0,.25)";g.shadowBlur=6;g.shadowOffsetX=edgeRight?-1:1;
+      g.fillStyle="#fff";g.fillRect(x,0,tw,thumbs[i].height);g.shadowColor="transparent";
+      g.drawImage(thumbs[i],x,0);
+      g.strokeStyle="rgba(0,0,0,.15)";g.strokeRect(x+.5,.5,tw-1,thumbs[i].height-1);
+    }
+    // zoomed inset around the seal
+    const p0=ps[0],cy=(p0.fy+p0.fh/2)*th,zh=Math.max(p0.fh*th*2.2,60),zx=edgeRight?tw-stripPx*1.5:0,zw=stripPx*n+stripPx*1.5;
+    const zoomC=document.createElement("canvas");const k=Math.min(4,Math.max(1.5,240/zh));zoomC.width=Math.round(zw*k);zoomC.height=Math.round(zh*k);zoomC.className="zoomc";
+    zoomC.getContext("2d").drawImage(fan,Math.max(0,zx),Math.max(0,cy-zh/2),zw,zh,0,0,zoomC.width,zoomC.height);
+    const box=document.createElement("div");box.className="fan";
+    box.innerHTML="<h4>第 "+ps[0].page+"–"+ps[n-1].page+" 頁 · 蓋在"+(edgeRight?"右邊":"左邊")+" · "+n+" 條</h4>";
+    const pair=document.createElement("div");pair.className="pair";pair.appendChild(fan);pair.appendChild(zoomC);box.appendChild(pair);
+    frag.appendChild(box);
+  }
+  body.innerHTML="";body.appendChild(frag);
+};
+
+// ---------- placements ----------
+function place(item){
+  if(!pdfDoc){msg("先選一個 PDF，再貼簽章","err");return;}
+  // real size when known: pixels / dpi * 72 = PDF points; baseW is the page width in points
+  let fw=item.dpi?(item.w/item.dpi*72)/baseW:0.3;
+  fw=Math.max(0.02,Math.min(0.95,fw));
+  const fh=fw*(item.h/item.w)*(baseW/baseH);
+  const p={id:Date.now()+"",page:pageNo,src:item.src,fx:0.5-fw/2,fy:0.5-fh/2,fw,fh,ratio:item.h/item.w};
+  placements.push(p);selected=p.id;drawPlacements();updateExportBtn();
+  if(isMobile())showView("page");
+  msg(item.dpi?"已依實際尺寸貼上（寬 "+(item.w/item.dpi*2.54).toFixed(2)+" cm）":"尺寸未知，先以頁寬 30% 貼上；在簽章庫縮圖下方填寬度就會變成實際大小","");
+}
+// ---- size editor for the selected placement ----
+const ptToCm=pt=>pt/72*2.54, cmToPt=cm=>cm/2.54*72;
+function syncSelSize(){
+  const p=placements.find(x=>x.id===selected);
+  $("selSize").hidden=!p;if(!p)return;
+  $("selCm").value=ptToCm(p.fw*baseW).toFixed(2);
+  $("selHint").textContent="× 高 "+ptToCm(p.fh*baseH).toFixed(2)+" cm";
+}
+$("selCm").addEventListener("change",()=>{
+  const p=placements.find(x=>x.id===selected);const cm=parseFloat($("selCm").value);if(!p||!(cm>0))return;
+  p.fw=Math.min(1-p.fx,cmToPt(cm)/baseW);p.fh=p.fw*p.ratio*(baseW/baseH);
+  if(p.fy+p.fh>1){p.fh=1-p.fy;p.fw=p.fh/(p.ratio*(baseW/baseH));}
+  drawPlacements();
+});
+function drawPlacements(){
+  const sheet=$("sheet");[...sheet.querySelectorAll(".ph")].forEach(x=>x.remove());
+  const W=baseW*zoom,H=baseH*zoom;
+  placements.filter(p=>p.page===pageNo).forEach(p=>{
+    const el=document.createElement("div");el.className="ph"+(p.id===selected?" sel":"");el.dataset.id=p.id;
+    el.style.left=p.fx*W+"px";el.style.top=p.fy*H+"px";el.style.width=p.fw*W+"px";el.style.height=p.fh*H+"px";
+    el.innerHTML='<img alt=""><div class="h" title="拖曳縮放"></div><button class="d" title="移除">✕</button>';
+    el.querySelector("img").src=p.src;
+    el.querySelector(".d").onclick=e=>{e.stopPropagation();placements=placements.filter(x=>x!==p);selected=null;drawPlacements();updateExportBtn();};
+    el.addEventListener("pointerdown",e=>{if(e.target.classList.contains("d"))return;startDrag(e,p,el,e.target.classList.contains("h"));});
+    sheet.appendChild(el);
+  });
+  const n=placements.length;$("count").textContent=n?`已貼 ${n} 個（本頁 ${placements.filter(p=>p.page===pageNo).length}）`:"";
+  syncSelSize();
+}
+function startDrag(e,p,el,resize){
+  e.preventDefault();e.stopPropagation();
+  selected=p.id;[...$("sheet").querySelectorAll(".ph")].forEach(x=>x.classList.toggle("sel",x===el));syncSelSize();
+  const W=baseW*zoom,H=baseH*zoom,sx=e.clientX,sy=e.clientY,o={...p};
+  el.setPointerCapture(e.pointerId);
+  const move=ev=>{
+    const dx=(ev.clientX-sx)/W,dy=(ev.clientY-sy)/H;
+    if(resize){
+      let fw=Math.max(0.03,o.fw+dx);let fh=fw*p.ratio*(baseW/baseH);
+      fw=Math.min(fw,1-p.fx);fh=Math.min(fh,1-p.fy);fw=fh/(p.ratio*(baseW/baseH));
+      p.fw=fw;p.fh=fh;
+    }else{
+      p.fx=Math.max(0,Math.min(1-p.fw,o.fx+dx));p.fy=Math.max(0,Math.min(1-p.fh,o.fy+dy));
+    }
+    el.style.left=p.fx*W+"px";el.style.top=p.fy*H+"px";el.style.width=p.fw*W+"px";el.style.height=p.fh*H+"px";
+    if(resize)syncSelSize();
+  };
+  const up=()=>{el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);el.removeEventListener("pointercancel",up);};
+  el.addEventListener("pointermove",move);el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up);
+}
+$("sheet").addEventListener("pointerdown",e=>{if(e.target===$("page")){selected=null;[...$("sheet").querySelectorAll(".ph")].forEach(x=>x.classList.remove("sel"));syncSelSize();}});
+document.addEventListener("keydown",e=>{
+  if((e.key==="Delete"||e.key==="Backspace")&&selected&&!/input|textarea/i.test(e.target.tagName)){placements=placements.filter(x=>x.id!==selected);selected=null;drawPlacements();updateExportBtn();}
+});
+function updateExportBtn(){$("export").disabled=!(pdfBytes&&placements.length);}
+
+// ---------- export ----------
+$("export").onclick=async()=>{
+  const btn=$("export");btn.disabled=true;
+  try{
+    msg("合成中…");
+    const {PDFDocument,degrees}=PDFLib;
+    const doc=await PDFDocument.load(pdfBytes.slice(0),{ignoreEncryption:true});
+    const pages=doc.getPages();const cache=new Map();
+    for(const p of placements){
+      const page=pages[p.page-1];if(!page)continue;
+      let img=cache.get(p.src);
+      if(!img){img=await doc.embedPng(dataURLToBytes(p.src));cache.set(p.src,img);}
+      const rot=((page.getRotation().angle%360)+360)%360;
+      const crop=page.getCropBox();                          // unrotated box pdf.js displays
+      const Wu=crop.width,Hu=crop.height;
+      const Wd=(rot===90||rot===270)?Hu:Wu, Hd=(rot===90||rot===270)?Wu:Hu;   // displayed size
+      const u0=p.fx*Wd,v0=p.fy*Hd,w=p.fw*Wd,h=p.fh*Hd;      // displayed, top-left origin
+      let x,y;                                               // bottom-left of image in unrotated coords
+      if(rot===0){x=u0;y=Hu-(v0+h);}
+      else if(rot===90){x=v0+h;y=u0;}
+      else if(rot===180){x=Wu-u0;y=v0+h;}
+      else{x=Wu-(v0+h);y=Hu-u0;}
+      page.drawImage(img,{x:crop.x+x,y:crop.y+y,width:w,height:h,rotate:degrees(rot)});
+    }
+    const out=await doc.save();
+    const name=pdfName.replace(/\.pdf$/i,"")+"-已蓋章.pdf";
+    await deliver(out,name);
+  }catch(e){console.error(e);msg("合成失敗："+(e.message||e),"err");}
+  btn.disabled=false;
+};
+async function deliver(bytes,name){
+  if(downloadsCap===undefined){downloadsCap=(window.claude&&claude.use)?await claude.use("downloads").catch(()=>null):null;}
+  if(downloadsCap){
+    try{await downloadsCap.save({filename:name,data:new Blob([bytes],{type:"application/pdf"})});msg("已下載："+name,"ok");}
+    catch(err){msg(err&&err.code==="declined"?"你取消了下載":"下載沒有成功："+(err&&err.message||err),"err");}
+    return;
+  }
+  const url=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"}));
+  const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),5000);msg("已下載："+name,"ok");
+}
+
+loadLib();renderLib();renderRsSelect();
+})();
+</script>
+</body>
+</html>
