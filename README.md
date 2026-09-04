@@ -8,7 +8,7 @@
 
 ## 下載離線版（不需要網路）
 
-👉 到 [Releases](../../releases/latest) 下載 `超好蓋-離線版.html`，存到電腦後用 Chrome / Edge / Safari 打開即可。
+👉 到 [Releases](../../releases/latest) 下載 `chaohaogai-offline.html`（超好蓋離線版），存到電腦後用 Chrome / Edge / Safari 打開即可。
 
 ## 功能
 
